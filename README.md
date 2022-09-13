@@ -2,6 +2,8 @@
 
 **Basic offline CPU ray-tracer using (only) C++20**
 
+![test](https://user-images.githubusercontent.com/16272243/189832006-683a99ab-a082-4241-98b6-285ca571d3fe.jpg)
+
 `tray` is a "tutorial project", structured such that it progresses linearly and is easy to follow along, but is also fully runnable at any tag / commit (on `main`). The wiki has chapters corresponding to a tag / branch each, which can be checked out as a "snapshot" to follow along / experiment with.
 
 ## Requriements
