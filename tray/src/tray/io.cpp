@@ -12,7 +12,7 @@ std::ostream& operator<<(std::ostream& out, Image const& image) {
 			// obtain corresponding Rgb
 			auto const& rgb = image[{row, col}];
 			// write out each channel
-			for (auto const channel : rgb.values) { out << static_cast<int>(channel) << ' '; }
+			for (auto const channel : rgb) { out << static_cast<int>(channel) << ' '; }
 		}
 		out << '\n';
 	}
