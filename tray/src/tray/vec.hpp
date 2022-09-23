@@ -174,7 +174,7 @@ constexpr Vec<Type, Dim> sqr_mag(Vec<Type, Dim> const& vec) {
 }
 
 template <typename Type, std::size_t Dim>
-Vec<Type, Dim> magnitude(Vec<Type, Dim> const& vec) {
+float magnitude(Vec<Type, Dim> const& vec) {
 	return std::sqrt(dot(vec, vec));
 }
 
