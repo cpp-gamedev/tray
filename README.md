@@ -6,7 +6,7 @@
 
 `tray` is a "tutorial project", structured such that it progresses linearly and is easy to follow along, but is also fully runnable at any tag / commit (on `main`). The wiki has chapters corresponding to a tag / branch each, which can be checked out as a "snapshot" to follow along / experiment with.
 
-## Requriements
+## Requirements
 
 1. CMake 3.18+
 1. C++20 compiler and standard library / runtime
