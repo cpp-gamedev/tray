@@ -185,6 +185,24 @@ Vec<float, Dim> normalize(Vec<float, Dim> const& in, float const epsilon = 0.001
 	return in / mag;
 }
 
+template <typename Type>
+constexpr auto zero_v = Type{};
+template <typename Type>
+constexpr auto one_v = static_cast<Type>(1);
+
+template <typename Type = float>
+constexpr auto left_v = Vec<Type, 3>{-one_v<Type>, zero_v<Type>, zero_v<Type>};
+template <typename Type = float>
+constexpr auto right_v = Vec<Type, 3>{one_v<Type>, zero_v<Type>, zero_v<Type>};
+template <typename Type = float>
+constexpr auto up_v = Vec<Type, 3>{zero_v<Type>, one_v<Type>, zero_v<Type>};
+template <typename Type = float>
+constexpr auto down_v = Vec<Type, 3>{zero_v<Type>, -one_v<Type>, zero_v<Type>};
+template <typename Type = float>
+constexpr auto forward_v = Vec<Type, 3>{zero_v<Type>, zero_v<Type>, -one_v<Type>};
+template <typename Type = float>
+constexpr auto backward_v = Vec<Type, 3>{zero_v<Type>, zero_v<Type>, one_v<Type>};
+
 using fvec2 = Vec<float, 2>;
 using uvec2 = Vec<std::uint32_t, 2>;
 using ivec2 = Vec<std::int32_t, 2>;
