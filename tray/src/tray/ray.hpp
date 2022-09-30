@@ -6,6 +6,6 @@ struct Ray {
 	fvec3 origin{};
 	nvec3 direction{};
 
-	constexpr fvec3 at(float const t) const { return origin + t * direction.vec(); }
+	fvec3 at(float const t) const { return origin + t * direction.vec(); }
 };
 } // namespace tray

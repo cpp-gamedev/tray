@@ -1,7 +1,7 @@
 #include <tray/image.hpp>
 #include <tray/io.hpp>
-#include <tray/vec.hpp>
 #include <tray/ray.hpp>
+#include <tray/vec.hpp>
 #include <iostream>
 #include <span>
 
@@ -12,7 +12,7 @@ int main() {
 	static constexpr auto origin = fvec3{0.0f, 0.0f, 0.0f};
 	static constexpr auto horizontal = fvec3(extent.x() / 100.0f, 0.0f, 0.0f);
 	static constexpr auto vertical = fvec3(0.0f, extent.y() / 100.0f, 0.0f);
-	static constexpr auto lower_left = origin - horizontal / 2.0f - vertical / 2.0f - fvec3{0.0f,0.0f,1.0f}; 
+	static constexpr auto lower_left = origin - horizontal / 2.0f - vertical / 2.0f - fvec3{0.0f, 0.0f, 1.0f};
 	auto image = Image{extent};
 	for (std::uint32_t row = 0; row < image.extent().y(); ++row) {
 		auto const yt = static_cast<float>(row) / static_cast<float>(image.extent().y());
