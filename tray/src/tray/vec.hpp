@@ -174,7 +174,7 @@ constexpr Vec<Type, Dim> sqr_mag(Vec<Type, Dim> const& vec) {
 }
 
 template <typename Type, std::size_t Dim>
-Vec<Type, Dim> magnitude(Vec<Type, Dim> const& vec) {
+float magnitude(Vec<Type, Dim> const& vec) {
 	return std::sqrt(dot(vec, vec));
 }
 
@@ -184,6 +184,24 @@ Vec<float, Dim> normalize(Vec<float, Dim> const& in, float const epsilon = 0.001
 	if (std::abs(mag) < epsilon) { return {}; }
 	return in / mag;
 }
+
+template <typename Type>
+constexpr auto zero_v = Type{};
+template <typename Type>
+constexpr auto one_v = static_cast<Type>(1);
+
+template <typename Type = float>
+constexpr auto left_v = Vec<Type, 3>{-one_v<Type>, zero_v<Type>, zero_v<Type>};
+template <typename Type = float>
+constexpr auto right_v = Vec<Type, 3>{one_v<Type>, zero_v<Type>, zero_v<Type>};
+template <typename Type = float>
+constexpr auto up_v = Vec<Type, 3>{zero_v<Type>, one_v<Type>, zero_v<Type>};
+template <typename Type = float>
+constexpr auto down_v = Vec<Type, 3>{zero_v<Type>, -one_v<Type>, zero_v<Type>};
+template <typename Type = float>
+constexpr auto forward_v = Vec<Type, 3>{zero_v<Type>, zero_v<Type>, -one_v<Type>};
+template <typename Type = float>
+constexpr auto backward_v = Vec<Type, 3>{zero_v<Type>, zero_v<Type>, one_v<Type>};
 
 using fvec2 = Vec<float, 2>;
 using uvec2 = Vec<std::uint32_t, 2>;
