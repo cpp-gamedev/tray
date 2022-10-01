@@ -25,10 +25,10 @@ class Renderable {
 	};
 
 	template <Hittable T>
-	struct Model : Base {
+	struct Model final : Base {
 		T t;
 		Model(T&& t) : t{std::move(t)} {}
-		bool hit(Hit& out, Ray const& ray) const override { return out(ray, t); }
+		bool hit(Hit& out, Ray const& ray) const override final { return out(ray, t); }
 	};
 
 	std::unique_ptr<Base> m_model{};

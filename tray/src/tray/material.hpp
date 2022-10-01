@@ -3,6 +3,6 @@
 
 namespace tray {
 struct Material {
-	fvec3 diffuse{1.0f};
+	fvec3 albedo{1.0f};
 };
 } // namespace tray

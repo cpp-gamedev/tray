@@ -31,7 +31,7 @@ int main() {
 	scene.renderables.push_back(Sphere{.centre = {0.0f, 0.0f, -5.0f}, .radius = 1.0f});
 	scene.renderables.push_back({
 		Sphere{.centre = {0.5f, -2.0f, -10.0f}, .radius = 5.0f},
-		Material{.diffuse = {0.2f, 0.8f, 0.7f}},
+		Material{.albedo = {0.2f, 0.8f, 0.7f}},
 	});
 	scene.dir_lights = {
 		DirLight{.intensity = {1.0f, 1.0f, 1.0f}, .direction = fvec3{-1.0f}},
