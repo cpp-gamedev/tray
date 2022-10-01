@@ -8,9 +8,13 @@ target_sources(${PROJECT_NAME} PRIVATE
   src/tray/io.cpp
   src/tray/io.hpp
   src/tray/light.hpp
+  src/tray/material.hpp
   src/tray/nvec3.hpp
   src/tray/ray.hpp
+  src/tray/renderable.hpp
   src/tray/rgb.hpp
+  src/tray/scene.cpp
+  src/tray/scene.hpp
   src/tray/sphere.hpp
   src/tray/vec.hpp
   src/tray/viewport.hpp

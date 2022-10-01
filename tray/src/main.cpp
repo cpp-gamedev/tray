@@ -1,8 +1,7 @@
 #include <tray/hit.hpp>
 #include <tray/image.hpp>
 #include <tray/io.hpp>
-#include <tray/light.hpp>
-#include <tray/ray.hpp>
+#include <tray/scene.hpp>
 #include <tray/viewport.hpp>
 #include <algorithm>
 #include <iostream>
@@ -28,13 +27,18 @@ int main() {
 	static constexpr auto vertical = fvec3{0.0f, viewport.extent.y(), 0.0f};
 	static constexpr auto top_left = origin + 0.5f * (-horizontal + vertical) + fvec3{0.0f, 0.0f, -viewport.depth};
 
-	static constexpr fvec3 gradient[] = {Rgb::from_hex(0xffffff).to_f32(), Rgb::from_hex(0x002277).to_f32()};
-	auto image = Image{extent};
-	auto const sphere = Sphere{.centre = {0.0f, 0.0f, -5.0f}, .radius = 1.0f};
-	DirLight const lights[] = {
-		DirLight{.intensity = {0.0f, 1.0f, 1.0f}, .direction = fvec3{-1.0f}},
-		DirLight{.intensity = {0.5f, 0.0f, 0.0f}, .direction = fvec3{0.0f, 0.0f, -1.0f}},
+	auto scene = Scene{};
+	scene.renderables.push_back(Sphere{.centre = {0.0f, 0.0f, -5.0f}, .radius = 1.0f});
+	scene.renderables.push_back({
+		Sphere{.centre = {0.5f, -2.0f, -10.0f}, .radius = 5.0f},
+		Material{.diffuse = {0.2f, 0.8f, 0.7f}},
+	});
+	scene.dir_lights = {
+		DirLight{.intensity = {1.0f, 1.0f, 1.0f}, .direction = fvec3{-1.0f}},
+		DirLight{.intensity = {0.5f, 0.3f, 0.3f}, .direction = fvec3{0.0f, 0.0f, -1.0f}},
 	};
+
+	auto image = Image{extent};
 
 	for (std::uint32_t row = 0; row < image.extent().y(); ++row) {
 		auto const yt = static_cast<float>(row) / static_cast<float>(image.extent().y() - 1);
@@ -42,13 +46,7 @@ int main() {
 			auto const xt = static_cast<float>(col) / static_cast<float>(image.extent().x() - 1);
 			auto const dir = top_left + xt * horizontal - yt * vertical - origin;
 			auto const ray = Ray{origin, dir};
-			auto hit = Hit{};
-			if (hit(ray, sphere)) {
-				image[{row, col}] = Rgb::from_f32(clamp(DirLight::combine(lights, hit.normal)));
-				continue;
-			}
-			auto const t = 0.5f * (ray.direction.vec().y() + 1.0f);
-			image[{row, col}] = Rgb::from_f32(lerp(gradient[0], gradient[1], t));
+			image[{row, col}] = Rgb::from_f32(clamp(scene.raycast(ray)));
 		}
 	}
 

@@ -7,6 +7,7 @@ namespace tray {
 struct Hit {
 	fvec3 point{};
 	nvec3 normal{};
+	float t{};
 
 	bool operator()(Ray const& ray, Sphere const& sphere);
 };
