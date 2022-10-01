@@ -9,6 +9,7 @@ target_sources(${PROJECT_NAME} PRIVATE
   src/tray/ray.hpp
   src/tray/rgb.hpp
   src/tray/vec.hpp
+  src/tray/viewport.hpp
 
   src/main.cpp
 )
