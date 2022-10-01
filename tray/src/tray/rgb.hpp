@@ -5,8 +5,8 @@ namespace tray {
 struct Rgb : Vec<std::uint8_t, 3> {
 	using Vec::Vec;
 
-	static constexpr float to_f32(std::uint8_t channel) { return static_cast<float>(channel) * 0xff; }
-	static constexpr std::uint8_t to_u8(float channel) { return static_cast<std::uint8_t>(channel / 0xff); }
+	static constexpr float to_f32(std::uint8_t channel) { return static_cast<float>(channel) / 0xff; }
+	static constexpr std::uint8_t to_u8(float channel) { return static_cast<std::uint8_t>(channel * 0xff); }
 
 	static constexpr Rgb from_f32(fvec3 const& normalized) { return {to_u8(normalized.x()), to_u8(normalized.y()), to_u8(normalized.z())}; }
 

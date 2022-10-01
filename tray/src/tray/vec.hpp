@@ -98,6 +98,12 @@ class Vec {
 		return *this;
 	}
 
+	friend constexpr Vec operator-(Vec const& v) {
+		auto ret = v;
+		ret = -ret;
+		return ret;
+	}
+
 	template <VecOrType<Type, Dim> T>
 	friend constexpr Vec operator+(Vec const& a, T const& b) {
 		auto ret = a;
