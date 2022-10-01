@@ -1,6 +1,8 @@
 add_executable(${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 target_sources(${PROJECT_NAME} PRIVATE
+  src/tray/hit.cpp
+  src/tray/hit.hpp
   src/tray/image.cpp
   src/tray/image.hpp
   src/tray/io.cpp
@@ -8,6 +10,7 @@ target_sources(${PROJECT_NAME} PRIVATE
   src/tray/nvec3.hpp
   src/tray/ray.hpp
   src/tray/rgb.hpp
+  src/tray/sphere.hpp
   src/tray/vec.hpp
   src/tray/viewport.hpp
 
