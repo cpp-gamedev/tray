@@ -1,3 +1,4 @@
+#include <tray/hit.hpp>
 #include <tray/image.hpp>
 #include <tray/io.hpp>
 #include <tray/ray.hpp>
@@ -18,6 +19,7 @@ int main() {
 
 	static constexpr fvec3 gradient[] = {Rgb::from_hex(0xffffff).to_f32(), Rgb::from_hex(0x002277).to_f32()};
 	auto image = Image{extent};
+	auto const sphere = Sphere{.centre = {0.0f, 0.0f, -5.0f}, .radius = 1.0f};
 
 	for (std::uint32_t row = 0; row < image.extent().y(); ++row) {
 		auto const yt = static_cast<float>(row) / static_cast<float>(image.extent().y() - 1);
@@ -25,6 +27,11 @@ int main() {
 			auto const xt = static_cast<float>(col) / static_cast<float>(image.extent().x() - 1);
 			auto const dir = top_left + xt * horizontal - yt * vertical - origin;
 			auto const ray = Ray{origin, dir};
+			auto hit = Hit{};
+			if (hit(ray, sphere)) {
+				image[{row, col}] = Rgb::from_f32(0.5f * (hit.normal.vec() + 1.0f));
+				continue;
+			}
 			auto const t = 0.5f * (ray.direction.vec().y() + 1.0f);
 			image[{row, col}] = Rgb::from_f32(lerp(gradient[0], gradient[1], t));
 		}
