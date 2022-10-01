@@ -1,12 +1,23 @@
 #include <tray/hit.hpp>
 #include <tray/image.hpp>
 #include <tray/io.hpp>
+#include <tray/light.hpp>
 #include <tray/ray.hpp>
 #include <tray/viewport.hpp>
+#include <algorithm>
 #include <iostream>
 #include <span>
 
 using namespace tray;
+
+namespace {
+constexpr fvec3 clamp(fvec3 in, float lo = 0.0f, float hi = 1.0f) {
+	in.x() = std::clamp(in.x(), lo, hi);
+	in.y() = std::clamp(in.y(), lo, hi);
+	in.z() = std::clamp(in.z(), lo, hi);
+	return in;
+}
+} // namespace
 
 int main() {
 	static constexpr auto extent = uvec2{400U, 300U};
@@ -20,6 +31,10 @@ int main() {
 	static constexpr fvec3 gradient[] = {Rgb::from_hex(0xffffff).to_f32(), Rgb::from_hex(0x002277).to_f32()};
 	auto image = Image{extent};
 	auto const sphere = Sphere{.centre = {0.0f, 0.0f, -5.0f}, .radius = 1.0f};
+	DirLight const lights[] = {
+		DirLight{.intensity = {0.0f, 1.0f, 1.0f}, .direction = fvec3{-1.0f}},
+		DirLight{.intensity = {0.5f, 0.0f, 0.0f}, .direction = fvec3{0.0f, 0.0f, -1.0f}},
+	};
 
 	for (std::uint32_t row = 0; row < image.extent().y(); ++row) {
 		auto const yt = static_cast<float>(row) / static_cast<float>(image.extent().y() - 1);
@@ -29,7 +44,7 @@ int main() {
 			auto const ray = Ray{origin, dir};
 			auto hit = Hit{};
 			if (hit(ray, sphere)) {
-				image[{row, col}] = Rgb::from_f32(0.5f * (hit.normal.vec() + 1.0f));
+				image[{row, col}] = Rgb::from_f32(clamp(DirLight::combine(lights, hit.normal)));
 				continue;
 			}
 			auto const t = 0.5f * (ray.direction.vec().y() + 1.0f);
