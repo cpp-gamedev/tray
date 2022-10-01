@@ -3,7 +3,7 @@
 
 namespace tray {
 namespace {
-constexpr float smallet_positive_root(std::span<float const, 2> roots) {
+constexpr float smallest_positive_root(std::span<float const, 2> roots) {
 	if (roots[0] < 0.0f) { return roots[1]; }
 	if (roots[1] < 0.0f) { return roots[0]; }
 	return std::min(roots[0], roots[1]);
@@ -19,7 +19,7 @@ bool Hit::operator()(Ray const& ray, Sphere const& sphere) {
 
 	auto const sqd = std::sqrt(discriminant);
 	float const roots[] = {0.5f * (-b - sqd), 0.5f * (-b + sqd)};
-	auto const t = smallet_positive_root(roots);
+	t = smallest_positive_root(roots);
 	if (t < 0.0f) { return false; }
 
 	point = ray.at(t);
