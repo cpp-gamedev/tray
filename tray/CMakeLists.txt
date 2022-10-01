@@ -7,6 +7,7 @@ target_sources(${PROJECT_NAME} PRIVATE
   src/tray/image.hpp
   src/tray/io.cpp
   src/tray/io.hpp
+  src/tray/light.hpp
   src/tray/nvec3.hpp
   src/tray/ray.hpp
   src/tray/rgb.hpp
