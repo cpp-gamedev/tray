@@ -30,7 +30,7 @@ int main() {
 	auto scene = Scene{};
 	scene.renderables.push_back(Sphere{.centre = {0.0f, 0.0f, -5.0f}, .radius = 1.0f});
 	scene.renderables.push_back({
-		Sphere{.centre = {0.5f, -2.0f, -10.0f}, .radius = 5.0f},
+		Sphere{.centre = {0.5f, -4.0f, -10.0f}, .radius = 5.0f},
 		Material{.albedo = {0.2f, 0.8f, 0.7f}},
 	});
 	scene.dir_lights = {
@@ -39,14 +39,15 @@ int main() {
 	};
 
 	auto image = Image{extent};
-
+	Renderable const* ptr = nullptr;
 	for (std::uint32_t row = 0; row < image.extent().y(); ++row) {
 		auto const yt = static_cast<float>(row) / static_cast<float>(image.extent().y() - 1);
 		for (std::uint32_t col = 0; col < image.extent().x(); ++col) {
 			auto const xt = static_cast<float>(col) / static_cast<float>(image.extent().x() - 1);
 			auto const dir = top_left + xt * horizontal - yt * vertical - origin;
 			auto const ray = Ray{origin, dir};
-			image[{row, col}] = Rgb::from_f32(clamp(scene.raycast(ray)));
+			fvec3 vec(clamp(scene.raycast(ray, ptr)));
+			image[{row, col}] = Rgb::from_f32(fvec3(sqrt(vec.x()), sqrt(vec.y()), sqrt(vec.z())));
 		}
 	}
 

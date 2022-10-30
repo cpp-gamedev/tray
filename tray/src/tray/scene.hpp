@@ -13,6 +13,7 @@ struct Scene {
 		fvec3 bottom{Rgb::from_hex(0xffffff).to_f32()};
 	} background{};
 
-	fvec3 raycast(Ray const& ray) const;
+	fvec3 raycast(Ray const& ray, Renderable const*& lastHit) const;
+	fvec3 rndpoint() const;
 };
 } // namespace tray

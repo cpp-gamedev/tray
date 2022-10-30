@@ -3,6 +3,8 @@
 #include <tray/material.hpp>
 #include <memory>
 
+#include "scene.hpp"
+
 namespace tray {
 template <typename T>
 concept Hittable = requires(T const& t, Ray const& ray) {
