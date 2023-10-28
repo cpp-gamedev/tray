@@ -53,10 +53,7 @@ class Vec {
 	constexpr Type& z() requires(Dim > 2) { return at(2); }
 	constexpr Type const& z() const requires(Dim > 2) { return at(2); }
 
-	constexpr Vec& operator-() requires(!std::is_unsigned_v<Type>) {
-		for (auto& value : m_values) { value = -value; }
-		return *this;
-	}
+
 
 	constexpr Vec& operator+=(Vec const& rhs) {
 		for_each(*this, [&rhs](std::size_t i, Type& value) { value += rhs.at(i); });
@@ -100,7 +97,7 @@ class Vec {
 
 	friend constexpr Vec operator-(Vec const& v) {
 		auto ret = v;
-		ret = -ret;
+		for (auto& value : ret.m_values) { value = -value; }
 		return ret;
 	}
 
